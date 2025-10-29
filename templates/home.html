@@ -1,7 +1,36 @@
 ﻿<!doctype html>
 <html>
-  <head><meta charset='utf-8'><title>Django Starter</title></head>
-  <body>
-    <h1>Hello from templates/home.html 👋</h1>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>{{ title|default:"Home" }}</title>
+  {% load static socialaccount %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; max-width: 800px; margin: 2rem auto; }
+    header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; }
+    nav a { margin-right: 12px; }
+    .btn { padding:.6rem 1rem; border:1px solid #ddd; border-radius:8px; text-decoration:none; }
+    .btn:hover { background:#f7f7f7; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MyProject</h1>
+    <nav>
+      {% if request.user.is_authenticated %}
+        <a class="btn" href="{% url 'dashboard' %}">Dashboard</a>
+        <a class="btn" href="{% url 'account_logout' %}">Logout</a>
+      {% else %}
+        <a class="btn" href="{% url 'account_login' %}">Login</a>
+        <a class="btn" href="{% url 'register' %}">Register</a>
+        <a class="btn" href="{% provider_login_url 'google' %}">Sign in with Google</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main>
+    <h2>Welcome{% if request.user.is_authenticated %}, {{ request.user.username }}{% endif %}</h2>
+    <p>Link multiple Google accounts and see them in your dashboard. Tokens persist in the database so you won’t need to reconnect after every login.</p>
+  </main>
+</body>
 </html>
