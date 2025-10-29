@@ -1,0 +1,18 @@
+﻿# Python / Django
+__pycache__/
+*.py[cod]
+*.sqlite3
+db.sqlite3
+*.log
+*.pot
+*.py,cover
+.coverage
+htmlcov/
+.DS_Store
+.env
+venv/
+.env.*/
+staticfiles/
+media/
+.idea/
+.vscode/
